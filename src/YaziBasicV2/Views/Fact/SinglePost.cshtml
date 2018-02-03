@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 3</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="~/css/sidebar.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/app.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="~/css/social.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+</head>
+<body>
+
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <button class="btntrans navbar-toggler" id="sidebarCollapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+        <a class="navbar-brand" href="#">think by fun</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="single.html">Single</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar" class="active col-12 col-md-3 col-xl-2 ">
+            <!--<div id="dismiss">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+            </div>-->
+
+            <ul class="list-unstyled components">
+
+                <!--<li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li><a href="#">Home 1</a></li>
+                        <li><a href="#">Home 2</a></li>
+                        <li><a href="#">Home 3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                    <a href="#pageSubmenu"  data-toggle="collapse" aria-expanded="false">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li><a href="#">Page 1</a></li>
+                        <li><a href="#">Page 2</a></li>
+                        <li><a href="#">Page 3</a></li>
+                    </ul>
+                </li>-->
+                <li><span><img src="~/img/feathers.png"></span><a href="/Fact/Tamil">Bizarre Facts</a></li>
+                <li><span><img src="~/img/cat.png"></span><a href="/Fact/Tamil">Animal Facts</a></li>
+                <li><span><img src="~/img/food.png"></span><a href="/Fact/Tamil">Food & Drink Facts </a></li>
+                <li><span><img src="~/img/actor.png"></span><a href="/Fact/Tamil">Celebrities Fact </a></li>
+                <li><span><img src="~/img/video-player.png"></span><a href="/Fact/Tamil">Film and TV Facts </a></li>
+                <li><span><img src="~/img/target.png"></span><a href="/Fact/Tamil">Sports Fact </a></li>
+                <li><span><img src="~/img/heartbeat.png"></span><a href="/Fact/Tamil">Health Facts </a></li>
+                <li><span><img src="~/img/night.png"></span><a href="/Fact/Tamil">Space Fact </a></li>
+                <li><span><img src="~/img/smartphone.png"></span><a href="/Fact/Tamil">Technology Facts </a></li>
+                <li><span><img src="~/img/airplane.png"></span><a href="/Fact/Tamil">Travel Facts </a></li>
+                <li><span><img src="~/img/helmet.png"></span><a href="/Fact/Tamil">History Facts </a></li>
+                <li><span><img src="~/img/angel.png"></span><a href="/Fact/Tamil">Religion  Facts </a></li>
+                <li><span><img src="~/img/libra.png"></span><a href="/Fact/Tamil">Crime & Law Facts </a></li>
+                <li><span><img src="~/img/column.png"></span><a href="/Fact/Tamil">Art & Design Facts </a></li>
+            </ul>
+
+
+            <div class="footer">
+                <p class="static">
+                    <a href="#">Advertise</a>
+                    <a href="#">Rules</a>
+                    <a href="#">Tips</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Jobs</a>
+                    <a href="#">Contact</a>
+                </p>
+                <p class="static">thinkbyfun © 2018</p>
+            </div>
+
+        </nav>
+
+        <!-- Page Content Holder -->
+
+        <div id="content" class="margin-top-50">
+            <div class="row">
+                <div class="col-12 col-md-6 col-xl-6 offset-md-2 offset-xl-2">
+                    <div class="offset-md-1 col-md-10">
+
+                        <div class="card card-01">
+                            <script id="singleTmpl" type="text/x-jsrender">
+                                <h4 class="card-title">{{:title}}</h4>
+                                <div class="base-footer clerfix">
+                                    <div class="accept-not float-left">
+                                        <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">{{:agree}}</span></button>
+                                        <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">{{:disAgree}}</span></button>
+                                    </div>
+                                    <div class="sharesocial float-right">
+                                        <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
+                                        <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
+                                        <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                    </div>
+                                </div>
+                                <br>
+                                <img class="card-img-top" src="https://thinkbyfun.com/user_data/quotes/642745efb4c0b2f4816ef523e98e8a28.jpg" alt="Card image cap">
+                                <div class="card-body" style="padding-right:0px;padding-left:0px">
+                                    <p class="card-text">{{:description}}</p>
+                                    <div class="base-footer clerfix">
+                                        <div class="accept-not float-left">
+                                            <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">{{:agree}}</span></button>
+                                            <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">{{:disAgree}}</span></button>
+                                        </div>
+                                        <div class="sharesocial float-right">
+                                            <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
+                                            <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
+                                            <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </script>
+                            @*<h4 class="card-title">Cats have excellent hearing and can detect an extremely broad range of frequencies.</h4>
+                            <div class="base-footer clerfix">
+                                <div class="accept-not float-left">
+                                    <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">4</span></button>
+                                    <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">4</span></button>
+                                </div>
+                                <div class="sharesocial float-right">
+                                    <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
+                                    <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
+                                    <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                </div>
+                            </div>
+                            <br>
+                            <img class="card-img-top" src="https://thinkbyfun.com/user_data/quotes/642745efb4c0b2f4816ef523e98e8a28.jpg" alt="Card image cap">
+                            <div class="card-body" style="padding-right:0px;padding-left:0px">
+                                <p class="card-text">It's one of the reasons why most fast food colors are orange and red and why the color yellow makes babies cry.</p>
+                                <div class="base-footer clerfix">
+                                    <div class="accept-not float-left">
+                                        <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">4</span></button>
+                                        <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">4</span></button>
+                                    </div>
+                                    <div class="sharesocial float-right">
+                                        <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
+                                        <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
+                                        <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-xl-3 adbar" style="padding-right:15px; padding-left: 15px">
+                    <p>sd sdLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="overlay"></div>
+
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.90/jsrender.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/common.js"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                sideBarFun();
+                debugger;
+                var factId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+                fetchSingle('' + factId);
+                function fetchSingle(url) {
+                    console.log('Making fetch() request to: ' + url);
+                    fetch(url)
+                        .then(readPromise)
+                        .then(renderJson)
+                        .catch(catchError);
+                }
+
+                function readPromise(response) {
+                    return response.json();
+                }
+
+                function renderJson(json) {
+                    //debugger;
+                    console.log("fetchDemo: " + json);
+                    var tmpl = $.templates("#singleTmpl"); // Get compiled template
+                    var html = tmpl.render(json);      // Render template using data - as HTML string
+                    $(".card").html(html);           // Insert HTML string into DOM
+                }
+
+                function catchError(resonse) {
+                    debugger;
+                    console.log("catchError: " + resonse);
+                }
+
+            });
+    </script>
+</body>
+</html>
