@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using YaziBasicV2.Helpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -245,8 +246,7 @@
                     debugger;
                     console.log("catchError: " + resonse);
                 }
-
-                fetchAll('');
+                fetchAll(fetchAllUrl);
             });
     </script></body>
 </html>

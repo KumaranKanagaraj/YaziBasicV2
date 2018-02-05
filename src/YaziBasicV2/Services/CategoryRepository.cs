@@ -43,6 +43,12 @@ namespace YaziBasicV2.Services
             return _context.Category.FirstOrDefault(a => a.CategoryId == categoryId);
         }
 
+        public Category GetCategory(string categoryName)
+        {
+            return _context.Category.FirstOrDefault(a => a.Name.ToLower() == categoryName.ToLower()
+            && a.ArticleTypeId == (int)ArticleTypeEnum.Verity);
+        }
+
         public bool IsCategoryExists(int id)
         {
             return _context.Category.Any(a => a.CategoryId == id && a.ArticleTypeId == (int)ArticleTypeEnum.Verity);

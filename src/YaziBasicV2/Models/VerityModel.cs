@@ -26,6 +26,7 @@ namespace YaziBasicV2.Models
                                           MetaDescription = verity.MetaDescription,
                                           Tags = verity.Tags,
                                           Title = verity.Title,
+                                          MetaTitle = verity.MetaTitle,
                                           Agree = impression.Agree,
                                           DisAgree = impression.DisAgree
                                       };
@@ -49,6 +50,7 @@ namespace YaziBasicV2.Models
                 MetaDescription = verityEntity.MetaDescription,
                 Tags = verityEntity.Tags,
                 Title = verityEntity.Title,
+                MetaTitle = verityEntity.MetaTitle,
                 Agree = socialImpressionEntity.Agree,
                 DisAgree = socialImpressionEntity.DisAgree
             };
@@ -73,6 +75,7 @@ namespace YaziBasicV2.Models
                                           MetaDescription = verity.MetaDescription,
                                           Tags = verity.Tags,
                                           Title = verity.Title,
+                                          MetaTitle = verity.MetaTitle,
                                           Agree = impression.Agree,
                                           DisAgree = impression.DisAgree
                                       };

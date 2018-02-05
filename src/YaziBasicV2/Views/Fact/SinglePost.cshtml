@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using YaziBasicV2.Helpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -204,7 +205,7 @@
                 sideBarFun();
                 debugger;
                 var factId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-                fetchSingle('' + factId);
+                fetchSingle(fetchSingleUrl + factId);
                 function fetchSingle(url) {
                     console.log('Making fetch() request to: ' + url);
                     fetch(url)

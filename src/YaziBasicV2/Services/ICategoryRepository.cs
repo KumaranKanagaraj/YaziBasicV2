@@ -10,6 +10,7 @@ namespace YaziBasicV2.Services
     {
         Category GetCategoryFromVerity(int categoryId);
         Category GetCategory(int categoryId);
+        Category GetCategory(string categoryName);
         void AddCategory(Category category);
         void UpdateCategory(Category category);
         void DeleteCategory(Category category);

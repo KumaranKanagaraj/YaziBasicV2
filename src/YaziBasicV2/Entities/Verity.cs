@@ -11,6 +11,8 @@ namespace YaziBasicV2.Entities
 
         public string Title { get; set; }
 
+        public string MetaTitle { get; set; }
+
         public string Description { get; set; }
 
         public string MetaDescription { get; set; }

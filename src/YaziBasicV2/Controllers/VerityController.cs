@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YaziBasicV2.Entities;
+using YaziBasicV2.Helpers;
 using YaziBasicV2.Models;
 using YaziBasicV2.Services;
 
@@ -79,7 +80,7 @@ namespace YaziBasicV2.Controllers
         /// </summary>
         /// <param name="id">Category Id</param>
         /// <returns></returns>
-        [HttpGet("category/{id}/verity")]
+        [HttpGet("category/{id:int}/verity")]
         public IActionResult GetVerity(int id)
         {
             var verityEntity = _verityRepository.GetVerityByCategory(id);
@@ -89,6 +90,26 @@ namespace YaziBasicV2.Controllers
             }
             var categoryEntity = _categoryRepository.GetCategoryFromVerity(id);
             var impressionEntity = _socialImpressionRepository.GetImpressionFromVerity();
+            var varityForDisplayDto = new VerityModel().GetVerityForDisplayDto(verityEntity, categoryEntity, impressionEntity);
+            return Ok(varityForDisplayDto);
+        }
+
+        /// <summary>
+        /// Get verity list based on category name
+        /// </summary>
+        /// <param name="name">category name</param>
+        /// <returns></returns>
+        [HttpGet("category/{name}/verity")]
+        public IActionResult GetVerityByCategoryName(string name)
+        {
+            name = name.Trim().Replace("-", " ");
+            var categoryEntity = _categoryRepository.GetCategory(name);
+            if (categoryEntity == null)
+            {
+                return NotFound();
+            }
+            var impressionEntity = _socialImpressionRepository.GetImpressionFromVerity();
+            var verityEntity = _verityRepository.GetVerityByCategory(categoryEntity.CategoryId);
             var varityForDisplayDto = new VerityModel().GetVerityForDisplayDto(verityEntity, categoryEntity, impressionEntity);
             return Ok(varityForDisplayDto);
         }
@@ -110,6 +131,7 @@ namespace YaziBasicV2.Controllers
             var verityEntity = Mapper.Map<Verity>(verityDto);
             verityEntity.VerityId = guid;
             verityEntity.SocialImpressionId = guid;
+            verityEntity.MetaTitle = SlugGenerator.GenerateTitleSlug(verityEntity.Title, guid);
 
             _socialImpressionRepository.AddImpression(new SocialImpression()
             {
@@ -196,6 +218,7 @@ namespace YaziBasicV2.Controllers
             verityDto.UpdatedTime = DateTime.Now;
             verityDto.VerityId = verityEntity.VerityId;
             verityDto.SocialImpressionId = verityEntity.SocialImpressionId;
+            verityEntity.MetaTitle = SlugGenerator.GenerateTitleSlug(verityEntity.Title, id);
             verityDto.ImagePath = (verityDto.ImagePath == "" || verityDto.ImagePath == null) ? verityEntity.ImagePath : verityDto.ImagePath;
 
             Mapper.Map(verityDto, verityEntity);
