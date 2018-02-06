@@ -81,5 +81,71 @@ namespace YaziBasicV2.Models
                                       };
             return verityForDisplayDto;
         }
+
+        public IEnumerable<string> GetVerityTagsByImpression(IEnumerable<Verity> verityEntity,List<Guid> impressionIds)
+        {
+            var tags = from verity in verityEntity
+                       join impression in impressionIds on verity.VerityId equals impression
+                       select verity.Tags;
+            return tags;
+        }
+
+        public IEnumerable<VerityForDisplayDto> GetVerityByTagName(IEnumerable<Verity> verityEntity,
+            IEnumerable<SocialImpression> socialImpressionEntity,
+            IEnumerable<Category> categoryEntity,
+            string searchString)
+        {
+            var verityForDisplayDto = from verity in verityEntity
+                       where verity.Tags.Split(',').Contains(searchString)
+                       join impression in socialImpressionEntity on verity.VerityId equals impression.SocialImpressionId
+                       select new VerityForDisplayDto()
+                       {
+                           VerityId = verity.VerityId,
+                           CategoryName = categoryEntity.Where(id => id.CategoryId == verity.CategoryId).FirstOrDefault().Name,
+                           AuthorName = ((AuthorEnum)verity.AuthorId).ToString(),
+                           CreatedTime = String.Format("{0:MM/dd/yyyy HH:mm:ss}", verity.CreatedTime),
+                           UpdatedTime = String.Format("{0:MM/dd/yyyy HH:mm:ss}", verity.UpdatedTime),
+                           Description = verity.Description,
+                           ImagePath = verity.ImagePath,
+                           IsPublic = verity.IsPublic,
+                           MetaDescription = verity.MetaDescription,
+                           Tags = verity.Tags,
+                           Title = verity.Title,
+                           MetaTitle = verity.MetaTitle,
+                           Agree = impression.Agree,
+                           DisAgree = impression.DisAgree
+                       };
+
+            return verityForDisplayDto;
+        }
+
+        public IEnumerable<VerityForDisplayDto> GetVerityByTagName(IEnumerable<Verity> verityEntity,
+            IEnumerable<SocialImpression> socialImpressionEntity,
+            Category categoryEntity,
+            string searchString)
+        {
+            var verityForDisplayDto = from verity in verityEntity
+                                      where verity.Tags.Split(',').Contains(searchString)
+                                      join impression in socialImpressionEntity on verity.VerityId equals impression.SocialImpressionId
+                                      select new VerityForDisplayDto()
+                                      {
+                                          VerityId = verity.VerityId,
+                                          CategoryName = categoryEntity.Name,
+                                          AuthorName = ((AuthorEnum)verity.AuthorId).ToString(),
+                                          CreatedTime = String.Format("{0:MM/dd/yyyy HH:mm:ss}", verity.CreatedTime),
+                                          UpdatedTime = String.Format("{0:MM/dd/yyyy HH:mm:ss}", verity.UpdatedTime),
+                                          Description = verity.Description,
+                                          ImagePath = verity.ImagePath,
+                                          IsPublic = verity.IsPublic,
+                                          MetaDescription = verity.MetaDescription,
+                                          Tags = verity.Tags,
+                                          Title = verity.Title,
+                                          MetaTitle = verity.MetaTitle,
+                                          Agree = impression.Agree,
+                                          DisAgree = impression.DisAgree
+                                      };
+
+            return verityForDisplayDto;
+        }
     }
 }

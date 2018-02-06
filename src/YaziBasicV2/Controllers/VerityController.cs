@@ -229,5 +229,113 @@ namespace YaziBasicV2.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Get tags from verity article
+        /// </summary>
+        /// <param name="categoryName">category-name</param>
+        /// <returns></returns>
+        [HttpGet("verity/tags/{categoryName?}")]
+        public IActionResult GetVerityTags(string categoryName="")
+        {
+            IEnumerable<SocialImpression> impressionEntity;
+            if (categoryName != "")
+            {
+                categoryName = categoryName.Trim().Replace("-", " ");
+                var categoryEntity = _categoryRepository.GetCategory(categoryName);
+                if (categoryEntity == null)
+                {
+                    return NoContent();
+                }
+                impressionEntity = _socialImpressionRepository.GetImpressionFromCategory(categoryEntity.CategoryId);
+            }
+            else
+            {
+                impressionEntity = _socialImpressionRepository.GetImpressionFromVerity();
+                if (impressionEntity == null)
+                {
+                    return NoContent();
+                }
+            }
+            var impressionId = new List<Guid>();
+            var guidByAgree = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.Agree).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+            var guidByDisAgree = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.DisAgree).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+            var guidByWhatsAppShare = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.WhatsAppShare).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+            var guidByLikes = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.Likes).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+            var guidByFBShare = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.FacebookShare).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+            var guidByTwitterShare = impressionEntity.Where(articleId => articleId.ArticleTypeId.Equals((int)ArticleTypeEnum.Verity)).
+                            OrderBy(impression => impression.TwitterShare).
+                            Select(id => id.SocialImpressionId).
+                            Take(10);
+
+            impressionId.AddRange(guidByAgree);
+            impressionId.AddRange(guidByDisAgree);
+            impressionId.AddRange(guidByAgree);
+            impressionId.AddRange(guidByWhatsAppShare);
+            impressionId.AddRange(guidByLikes);
+            impressionId.AddRange(guidByFBShare);
+            impressionId.AddRange(guidByTwitterShare);
+            impressionId = impressionId.Distinct().ToList();
+            var verityEntity = _verityRepository.GetAll();
+            var tagsEntity = new VerityModel().GetVerityTagsByImpression(verityEntity, impressionId).Distinct();
+            var verityTags = new List<string>();
+            foreach (var tags in tagsEntity)
+            {
+                var tagList = tags.Split(',');
+                verityTags.AddRange(tagList);
+            }
+            return Ok(verityTags);
+        }
+
+        /// <summary>
+        /// Get verity by tag search
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
+        [HttpGet("verity/search/{searchString}")]
+        public IActionResult SearchVerityByTags(string searchString)
+        {
+            var verityEntity = _verityRepository.GetAll();
+            var categoryEntity = _categoryRepository.GetCategoryFromVerity();
+            var impressionEntity = _socialImpressionRepository.GetImpressionFromVerity();
+            var varityForDisplayDto = new VerityModel().GetVerityByTagName(verityEntity, impressionEntity, categoryEntity,searchString);
+            return Ok(varityForDisplayDto);
+        }
+
+        /// <summary>
+        /// Get verity by tag and category name search
+        /// </summary>
+        /// <param name="searchString">tag</param>
+        /// <param name="categoryName">category-name</param>
+        /// <returns></returns>
+        [HttpGet("verity/search/{searchString}/{categoryName}")]
+        public IActionResult SearchVerityByTags(string searchString,string categoryName)
+        {
+            categoryName = categoryName.Trim().Replace("-", " ");
+            var categoryEntity = _categoryRepository.GetCategory(categoryName);
+            if (categoryEntity == null)
+            {
+                return NoContent();
+            }
+            var verityEntity = _verityRepository.GetVerityByCategory(categoryEntity.CategoryId);
+            var impressionEntity = _socialImpressionRepository.GetImpressionFromCategory(categoryEntity.CategoryId);
+            var varityForDisplayDto = new VerityModel().GetVerityByTagName(verityEntity, impressionEntity, categoryEntity, searchString);
+            return Ok(varityForDisplayDto);
+        }
+
     }
 }
