@@ -63,10 +63,24 @@ namespace YaziBasicV2.Controllers
         /// </summary>
         /// <param name="id">category id</param>
         /// <returns></returns>
-        [HttpGet("category", Name = "GetCategory")]
+        [HttpGet("category/{id:int}", Name = "GetCategory")]
         public IActionResult GetCategory(int id)
         {
             var categoryEntity = _categoryRepository.GetCategory(id);
+            var categoryForDisplayDto = new CategoryModel().GetCategoryForDisplayDto(categoryEntity);
+            return Ok(categoryForDisplayDto);
+        }
+
+        /// <summary>
+        /// Get single category based on category name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet("category/{name}")]
+        public IActionResult GetCategory(string name)
+        {
+            name = name.Trim().Replace("-", " ");
+            var categoryEntity = _categoryRepository.GetCategory(name);
             var categoryForDisplayDto = new CategoryModel().GetCategoryForDisplayDto(categoryEntity);
             return Ok(categoryForDisplayDto);
         }

@@ -54,45 +54,14 @@
 
     <div class="wrapper">
         <!-- Sidebar Holder -->
-        <nav id="sidebar" class="active col-12 col-md-3 col-xl-2 ">
-            <!--<div id="dismiss">
-                <i class="glyphicon glyphicon-arrow-left"></i>
-            </div>-->
-
-            <ul class="list-unstyled components">
-
-                <!--<li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="#">Home 1</a></li>
-                        <li><a href="#">Home 2</a></li>
-                        <li><a href="#">Home 3</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                    <a href="#pageSubmenu"  data-toggle="collapse" aria-expanded="false">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li><a href="#">Page 1</a></li>
-                        <li><a href="#">Page 2</a></li>
-                        <li><a href="#">Page 3</a></li>
-                    </ul>
-                </li>-->
-                <li><span><img src="../img/feathers.png"></span><a href="/Fact/Tamil">Bizarre Facts</a></li>
-                <li><span><img src="../img/cat.png"></span><a href="/Fact/Tamil">Animal Facts</a></li>
-                <li><span><img src="../img/food.png"></span><a href="/Fact/Tamil">Food & Drink Facts </a></li>
-                <li><span><img src="../img/actor.png"></span><a href="/Fact/Tamil">Celebrities Fact </a></li>
-                <li><span><img src="../img/video-player.png"></span><a href="/Fact/Tamil">Film and TV Facts </a></li>
-                <li><span><img src="../img/target.png"></span><a href="/Fact/Tamil">Sports Fact </a></li>
-                <li><span><img src="../img/heartbeat.png"></span><a href="/Fact/Tamil">Health Facts </a></li>
-                <li><span><img src="../img/night.png"></span><a href="/Fact/Tamil">Space Fact </a></li>
-                <li><span><img src="../img/smartphone.png"></span><a href="/Fact/Tamil">Technology Facts </a></li>
-                <li><span><img src="../img/airplane.png"></span><a href="/Fact/Tamil">Travel Facts </a></li>
-                <li><span><img src="../img/helmet.png"></span><a href="/Fact/Tamil">History Facts </a></li>
-                <li><span><img src="../img/angel.png"></span><a href="/Fact/Tamil">Religion  Facts </a></li>
-                <li><span><img src="../img/libra.png"></span><a href="/Fact/Tamil">Crime & Law Facts </a></li>
-                <li><span><img src="../img/column.png"></span><a href="/Fact/Tamil">Art & Design Facts </a></li>
-            </ul>
+        <nav id="sidebar" class="categories active col-12 col-md-3 col-xl-2 ">
+            <script id="categoriesTmpl" type="text/x-jsrender">
+                <ul class="list-unstyled components">
+                    {{for categoriesData}}
+                    <li><span><img src="{{:imagePath}}"></span><a href="/Fact/{{:metaName}}">{{:name}}</a></li>
+                    {{/for}}
+                </ul>
+            </script>
 
 
             <div class="footer">
@@ -119,73 +88,46 @@
                     <div class="offset-md-1 col-md-10">
 
                         <div class="categoryTitle clearfix">
-                            <h1><span><img src="../img/cat.png" alt="Animal Fact" class=""></span>Animal Facts</h1>
+                            <script id="categoryTitleTmpl" type="text/x-jsrender">
+                                <h1><span><img src="{{:imagePath}}" alt="{{:metaName}}" class=""></span>{{:name}}</h1>
+                            </script>
                         </div>
 
-                        <div class="trend">
-                            <a href="#" class="badge badge-danger">Human</a>
-                            <a href="#" class="badge badge-danger">Technology</a>
-                            <a href="#" class="badge badge-danger">Earth</a>
-                            <a href="#" class="badge badge-danger">Personality</a>
-                            <a href="#" class="badge badge-danger">Dog</a>
-                            <a href="#" class="badge badge-danger">Babies</a>
-                            <a href="#" class="badge badge-danger">India</a>
-                            <a href="#" class="badge badge-danger">Politics</a>
-                            <a href="#" class="badge badge-danger">Law</a>
-                            <a href="#" class="badge badge-danger">TamilNadu</a>
-                            <a href="#" class="badge badge-danger">School</a>
-                            <a href="#" class="badge badge-danger">People</a>
-                            <a href="#" class="badge badge-danger">Food</a>
-                            <a href="#" class="badge badge-danger">TV</a>
-                            <a href="#" class="badge badge-danger">Hot</a>
-                            <a href="#" class="badge badge-danger">Actress</a>
-                            <a href="#" class="badge badge-danger">Trending</a>
-                            <a href="#" class="badge badge-danger">NSFW</a>
-                            <a href="#" class="badge badge-danger">New</a>
-                            <a href="#" class="badge badge-danger">Famous</a>
+                        <div class="trend tags">
+                            <script id="tagsTmpl" type="text/x-jsrender">
+                                <ul class="list-unstyled components">
+                                    {{for tagsData}}
+                                    <a href="#" class="badge badge-danger">{{:}}</a>
+                                    {{/for}}
+                                </ul>
+                            </script>
                         </div>
 
                         <div class="cards">
                             <script id="myTmpl" type="text/x-jsrender">
                                 {{for testData}}
-                                <div class="card card-01">
-                                    <h4 class="card-title">{{:title}}</h4>
-                                    <img class="card-img-top" src="https://thinkbyfun.com/user_data/quotes/642745efb4c0b2f4816ef523e98e8a28.jpg" alt="Card image cap">
-                                    <div class="card-body" style="padding-right:0px;padding-left:0px">
-                                        <p class="card-text">{{:description}}</p>
-                                        <div class="base-footer clerfix">
-                                            <div class="accept-not float-left">
-                                                <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">{{:agree}}</span></button>
-                                                <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">{{:disAgree}}</span></button>
-                                            </div>
-                                            <div class="sharesocial float-right">
-                                                <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
-                                                <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
-                                                <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                <a href="/fact/{{:~format(categoryName)}}/{{:verityId}}">
+                                    <div class="card card-01">
+                                        <h4 class="card-title">{{:title}}</h4>
+                                        <img class="card-img-top" src="{{:imagePath}}" alt="Card image cap">
+                                        <div class="card-body" style="padding-right:0px;padding-left:0px">
+                                            <p class="card-text">{{:description}}</p>
+                                            <div class="base-footer clerfix">
+                                                <div class="accept-not float-left">
+                                                    <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">{{:agree}}</span></button>
+                                                    <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">{{:disAgree}}</span></button>
+                                                </div>
+                                                <div class="sharesocial float-right">
+                                                    <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
+                                                    <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
+                                                    <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                                 {{/for}}
                             </script>
-                            @*<div class="card card-01">
-                                <h4 class="card-title">Cats have excellent hearing and can detect an extremely broad range of frequencies.</h4>
-                                <img class="card-img-top" src="https://thinkbyfun.com/user_data/quotes/642745efb4c0b2f4816ef523e98e8a28.jpg" alt="Card image cap">
-                                <div class="card-body" style="padding-right:0px;padding-left:0px">
-                                    <p class="card-text">It's one of the reasons why most fast food colors are orange and red and why the color yellow makes babies cry.</p>
-                                    <div class="base-footer clerfix">
-                                        <div class="accept-not float-left">
-                                            <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">4</span></button>
-                                            <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-times"></i> <span>Decline</span> <span class="badge number badge-light">4</span></button>
-                                        </div>
-                                        <div class="sharesocial float-right">
-                                            <button type="button" class="btn bg-facebook btn-sm"><i class="fa fa-facebook"></i></button>
-                                            <button type="button" class="btn bg-pinterest btn-sm"><i class="fa fa-pinterest-p"></i></button>
-                                            <button type="button" class="btn bg-vine btn-sm"><i class="fa fa-whatsapp"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -213,34 +155,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             sideBarFun();
-            function fetchAll(url) {
-                console.log('Making fetch() request to: ' + url);
-                fetch(url)
-                    .then(doAction1)
-                    .then(doAction2)
-                    .catch(catchError);
-            }
-
-            function doAction1(response) {
-                console.log(response.headers.get("x-pagination"));
-                return response.json();
-            }
-
-            function doAction2(json) {
-                debugger;
-                console.log("fetchDemo: " + json);
-                var tmpl = $.templates("#myTmpl"); // Get compiled template
-                var data = { testData: json };           // Define data
-                var html = tmpl.render(data);      // Render template using data - as HTML string
-                $(".cards").html(html);           // Insert HTML string into DOM
-            }
-
-            function catchError(resonse) {
-                debugger;
-                console.log("catchError: " + resonse);
-            }
-
-            fetchAll(fetchByCategoryNameUrl.replace("category-name", "tamil-fact"));
+            fetchSingleCategory(fetchSingleCategoryUrl.replace("category-name", getTextAfterLastSlash()));
+            fetchAllFacts(fetchByCategoryNameUrl.replace("category-name", getTextAfterLastSlash()));
+            fetchAllCategories(fetchAllCategoryUrl);
+            fetchAllTags(fetchAllTagsUrl);
         });
     </script>
 </body>
