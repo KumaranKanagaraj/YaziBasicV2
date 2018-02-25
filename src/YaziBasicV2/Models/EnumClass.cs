@@ -10,7 +10,8 @@ namespace YaziBasicV2.Models
     {
         Verity = 1,
         News,
-        Quotes
+        Quotes,
+        Ecards
     }
 
     public enum AuthorEnum

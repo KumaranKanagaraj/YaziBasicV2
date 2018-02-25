@@ -1,0 +1,110 @@
+﻿@model YaziBasicV2.Models.AdminDisplayModel
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/app.css">
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">IWISHU.IN | ADMIN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index","AdminFact")">Dashboard </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("AddPost","AdminFact")">Add Post</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("ViewPost","AdminFact")">View Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Category","AdminFact")">Category</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-heading bg-white">
+        <div class="row">
+            <div class="col-sm-9">
+                <h4 class="m0 text-thin">Welcome to iwishu.in dashboard</h4><small>Create, update, Delete post and Categories</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <h5 class="mt0">View Post</h5>
+        <div class="cardbox">
+            <table id="postAdminTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @{
+                        int counter = 1;
+                    }
+                    @foreach (var item in Model.Facts)
+                    {
+                        <tr data-fact-id="@item.VerityId">
+                            <td>@(counter++)</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.Title</td>
+                            <td>@item.ImagePath</td>
+                            <td>@item.Tags</td>
+                            <td><span>@Html.ActionLink("Edit", "EditPost", "AdminFact", new { id = item.VerityId })</span> | <span>@Html.ActionLink("Delete", "Delete", "AdminFact", new { id = item.VerityId })</span></td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#postAdminTable').DataTable();
+      } );
+    </script>
+</body>
+</html>

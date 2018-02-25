@@ -44,6 +44,30 @@ namespace YaziBasicV2.Helpers
             }
         }
 
+        public async Task<string> PostEcardData(string baseUrl, string queryUrl, ECardDto eCardDto)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                var response = await client.PostAsJsonAsync(queryUrl, eCardDto);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task<string> UpdateEcardData(string baseUrl, string queryUrl, ECardDto eCardDto)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                var response = await client.PutAsJsonAsync(queryUrl, eCardDto);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
         public async Task<string> PostCategoryData(string baseUrl, string queryUrl, CategoryDto categoryDto)
         {
 

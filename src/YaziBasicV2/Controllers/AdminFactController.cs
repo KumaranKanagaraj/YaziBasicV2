@@ -10,8 +10,8 @@ using YaziBasicV2.Models;
 namespace YaziBasicV2.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Route("admin")]
-    public class AdminController : Controller
+    [Route("admin/facts")]
+    public class AdminFactController : Controller
     {
         [HttpGet("add-post")]
         public async Task<IActionResult> AddPost()
@@ -41,7 +41,7 @@ namespace YaziBasicV2.Controllers
             long size = 0;
             try
             {
-                verityDto.MetaDescription = verityDto.Description.Substring(0, Math.Min(verityDto.Description.Length, 20));
+                verityDto.MetaDescription = verityDto.Description.Substring(0, Math.Min(verityDto.MetaDescription.Length, 50));
                 var response = "";
                 if (type == "add")
                     response = await new ApiHandler().PostFactData(UriHelper.BaseUrl, UriHelper.PostVerity, verityDto);
@@ -52,7 +52,7 @@ namespace YaziBasicV2.Controllers
             {
                 //
             }
-            return RedirectToAction("ViewPost", "Admin");
+            return RedirectToAction("ViewPost", "AdminFact");
         }
 
         [Route("edit-post")]
@@ -110,7 +110,7 @@ namespace YaziBasicV2.Controllers
             {
                 //
             }
-            return RedirectToAction("ViewPost", "Admin");
+            return RedirectToAction("ViewPost", "AdminFact");
         }
 
         [HttpGet("category")]
@@ -143,7 +143,7 @@ namespace YaziBasicV2.Controllers
             {
                 //
             }
-            return RedirectToAction("category", "Admin");
+            return RedirectToAction("category", "AdminFact");
         }
 
         [HttpPost("updatecategory")]
@@ -159,7 +159,7 @@ namespace YaziBasicV2.Controllers
             {
                 //
             }
-            return RedirectToAction("category", "Admin");
+            return RedirectToAction("category", "AdminFact");
         }
 
         [HttpGet("delete-category")]
@@ -173,7 +173,7 @@ namespace YaziBasicV2.Controllers
             {
                 //
             }
-            return RedirectToAction("category", "Admin");
+            return RedirectToAction("category", "AdminFact");
         }
     }
 }

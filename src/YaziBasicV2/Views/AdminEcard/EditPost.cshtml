@@ -1,0 +1,138 @@
+﻿@model YaziBasicV2.Models.AdminDisplayModel
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/app.css">
+    <link rel="stylesheet" href="~/css/editor.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">IWISHU.IN | ADMIN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index","AdminEcard")">Dashboard </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("AddPost","AdminEcard")">Add Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ViewPost","AdminEcard")">View Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Category","AdminEcard")">Category</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-heading bg-white">
+        <div class="row">
+            <div class="col-sm-9">
+                <h4 class="m0 text-thin">Welcome to iwishu.in dashboard</h4><small>Create, update, Delete post and Categories</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <h5 class="mt0">Create Post</h5>
+        <div class="cardbox cardbox-default">
+            <div class="cardbox-body">
+                <form id="edit-post" enctype="multipart/form-data" action="/admin/ecards/add-post/edit/@Model.EcardsDto.Id" method="post">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category" name="CategoryId">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value=@category.CategoryId>@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <select class="form-control" id="author" name="AuthorId">
+                            @{
+                                int counter = 1;
+                            }
+                            @foreach (var author in Model.Authors)
+                            {
+                                <option value=@(counter++)>@author</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Titile</label>
+                        <input type="text" class="form-control" id="title" name="Title" value="@Model.EcardsDto.Title" placeholder="Title of the post">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtEditor">Post</label>
+                        <textarea class="form-control" id="txtEditor" name="MetaDescription">@Model.EcardsDto.MetaDescription</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtEditor">Post</label>
+                        <textarea class="form-control" id="txtEditor" name="Description">@Model.EcardsDto.Description</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="img-url">Image Url</label>
+                        <input type="text" class="form-control" id="img-path" name="ImagePath" value="@Model.EcardsDto.ImagePath" placeholder="Url for Image">
+                    </div>
+
+                    @*<div class="form-group">
+                            <label for="upload-image">Upload Image</label>
+                            <input type="file" name="ImageFile" class="form-control-file" id="upload-image">
+                            <small id="emailHelp" class="form-text text-muted"><i>* Supported - .png, .jpg, .gif</i></small>
+                        </div>*@
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" id="tags" name="Tags" value="@Model.EcardsDto.Tags">
+                    </div>
+
+                    <div class="">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <div class="checkbox c-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="IsPublic" value="true"><span class="ion-checkmark-round"></span>Publish
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="float-right mt-sm">
+                                <button class="btn btn-primary btn-flat" type="submit">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/editor.js"></script>
+    <script>
+      //$(document).ready(function() {
+      //  $("#txtEditor").Editor();
+      //});
+    </script>
+</body>
+</html>

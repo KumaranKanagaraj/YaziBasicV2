@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace YaziBasicV2.Helpers
 {
-    public class VerityResourceParameters
+    public class ResourceParameters
     {
-        const int maxPageSize = 5;
+        const int maxPageSize = 10;
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 5;

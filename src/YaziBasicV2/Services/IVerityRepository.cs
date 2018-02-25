@@ -11,7 +11,7 @@ namespace YaziBasicV2.Services
     {
         IEnumerable<Verity> GetAll();
         Verity GetVerity(Guid verityId);
-        PagedList<Verity> GetVerities(VerityResourceParameters verityResourceParameters);
+        PagedList<Verity> GetVerities(ResourceParameters verityResourceParameters);
         Guid AddVerity(Verity verity);
         void UpdateVerity(Verity verity);
         void DeleteVerity(Verity verity);

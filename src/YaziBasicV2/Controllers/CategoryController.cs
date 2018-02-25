@@ -47,7 +47,31 @@ namespace YaziBasicV2.Controllers
                 return BadRequest();
             }
             var categoryEntity = Mapper.Map<Category>(categoryDto);
-            _categoryRepository.AddCategory(categoryEntity);
+            _categoryRepository.AddCategory(categoryEntity, ArticleTypeEnum.Verity);
+            if (!_categoryRepository.Save())
+            {
+                throw new Exception($"Adding category failed on save.");
+            }
+            var categoryModel = Mapper.Map<CategoryDto>(categoryEntity);
+            return CreatedAtRoute("GetCategory",
+                new { categoryId = categoryModel.CategoryId },
+                categoryModel);
+        }
+
+        /// <summary>
+        /// Create category for the eCard
+        /// </summary>
+        /// <param name="categoryDto">categoryDto model object</param>
+        /// <returns></returns>
+        [HttpPost("ecards/category")]
+        public IActionResult CreateCategoryForEcard([FromBody]CategoryDto categoryDto)
+        {
+            if (categoryDto == null)
+            {
+                return BadRequest();
+            }
+            var categoryEntity = Mapper.Map<Category>(categoryDto);
+            _categoryRepository.AddCategory(categoryEntity, ArticleTypeEnum.Ecards);
             if (!_categoryRepository.Save())
             {
                 throw new Exception($"Adding category failed on save.");
@@ -93,6 +117,18 @@ namespace YaziBasicV2.Controllers
         public IActionResult GetCategoryInVerity()
         {
             var categoryEntity = _categoryRepository.GetCategoryFromVerity();
+            var categoryForDisplayDto = new CategoryModel().GetCategoryForDisplayDto(categoryEntity);
+            return Ok(categoryForDisplayDto);
+        }
+
+        /// <summary>
+        /// Get all category from ecards
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ecards/category")]
+        public IActionResult GetCategoryInEcards()
+        {
+            var categoryEntity = _categoryRepository.GetCategoryFromEcard();
             var categoryForDisplayDto = new CategoryModel().GetCategoryForDisplayDto(categoryEntity);
             return Ok(categoryForDisplayDto);
         }

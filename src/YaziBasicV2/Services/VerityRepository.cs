@@ -36,7 +36,7 @@ namespace YaziBasicV2.Services
                    OrderByDescending(t => t.UpdatedTime).ToList();
         }
 
-        public PagedList<Verity> GetVerities(VerityResourceParameters verityResourceParameters)
+        public PagedList<Verity> GetVerities(ResourceParameters verityResourceParameters)
         {
             return PagedList<Verity>.Create(_context.Verity.OrderBy(i => i.CreatedTime),
                 verityResourceParameters.PageNumber,

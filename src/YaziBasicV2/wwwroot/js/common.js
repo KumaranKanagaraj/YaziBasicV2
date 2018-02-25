@@ -1,10 +1,14 @@
-﻿
+﻿var fetchAllFactsUrl = "http://localhost:60540/api/verities/";
+var fetchSingleUrl = "http://localhost:60540/api/verity/";
+var fetchByCategoryNameUrl = "http://localhost:60540/api/category/category-name/verity/";
+var fetchAllCategoryUrl = "http://localhost:60540/api/verity/category";
+var fetchAllTagsUrl = "http://localhost:60540/api/verity/tags/";
+var fetchSingleCategoryUrl = "http://localhost:60540/api/category/category-name";
 
-function sideBarFun() {
+function sideBarFun(json) {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
-
     $('#dismiss, .overlay').on('click', function () {
         $('#sidebar').removeClass('active');
         $('.overlay').fadeOut();
@@ -27,6 +31,21 @@ function convertToSlug(Text) {
         .replace(/[^\w-]+/g, '');
 }
 
+function titleCase(str) {
+    str = str.toLowerCase().split(' ');
+
+    for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].split('');
+        str[i][0] = str[i][0].toUpperCase();
+        str[i] = str[i].join('');
+    }
+    return str.join(' ');
+}
+
+function slugToText(slugText) {
+    return titleCase(slugText.trim().replace('-', ' '));
+}
+
 function getTextAfterLastSlash() {
     return window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 }
@@ -45,6 +64,7 @@ function getJson(response) {
 }
 
 function constructFactTemplate(json) {
+    debugger;
     var myHelpers = { format: convertToSlug };
     console.log("fetchDemo: " + json);
     var tmpl = $.templates("#myTmpl"); // Get compiled template
@@ -63,6 +83,7 @@ function fetchAllCategories(url) {
     fetch(url)
         .then(getJson)
         .then(constructCategoryTemplate)
+        .then(sideBarFun)
         .catch(catchError);
 }
 
@@ -72,7 +93,9 @@ function constructCategoryTemplate(json) {
     var data = { categoriesData: json };           // Define data
     var html = tmpl.render(data);      // Render template using data - as HTML string
     $(".categories").html(html);           // Insert HTML string into DOM
-
+    return Promise.resolve(json);
+    //$("#sidebar").mCustomScrollbar("update");
+    //$("#sidebar .mCSB_container").html(html);
 }
 
 function fetchAllTags(url) {
@@ -117,7 +140,9 @@ function fetchSinglePost(url) {
 
 function constructSinglePostTemplate(json) {
     console.log("fetchDemo: " + json);
+    document.title = json.title;
     var tmpl = $.templates("#singleTmpl"); // Get compiled template
     var html = tmpl.render(json);      // Render template using data - as HTML string
     $(".card").html(html);           // Insert HTML string into DOM
+    return Promise.resolve(json);
 }

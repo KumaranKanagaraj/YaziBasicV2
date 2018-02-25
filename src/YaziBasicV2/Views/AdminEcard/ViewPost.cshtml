@@ -26,16 +26,16 @@
         <div class="collapse navbar-collapse" id="navbarsExample07">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index","Admin")">Dashboard </a>
+                    <a class="nav-link" href="@Url.Action("Index", "AdminEcard")">Dashboard </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("AddPost","Admin")">Add Post</a>
+                    <a class="nav-link" href="@Url.Action("AddPost","AdminEcard")">Add Post</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("ViewPost","Admin")">View Post</a>
+                    <a class="nav-link" href="@Url.Action("ViewPost","AdminEcard")">View Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Category","Admin")">Category</a>
+                    <a class="nav-link" href="@Url.Action("Category","AdminEcard")">Category</a>
                 </li>
             </ul>
         </div>
@@ -77,15 +77,15 @@
                     @{
                         int counter = 1;
                     }
-                    @foreach (var item in Model.Facts)
+                    @foreach (var item in Model.Ecards)
                     {
-                        <tr data-fact-id="@item.VerityId">
+                        <tr data-fact-id="@item.Id">
                             <td>@(counter++)</td>
                             <td>@item.CategoryName</td>
-                            <td>@item.Description</td>
+                            <td>@item.Title</td>
                             <td>@item.ImagePath</td>
                             <td>@item.Tags</td>
-                            <td><span>@Html.ActionLink("Edit", "EditPost", "Admin", new { id = item.VerityId })</span> | <span>@Html.ActionLink("Delete", "Delete", "Admin", new { id = item.VerityId })</span></td>
+                            <td><span>@Html.ActionLink("Edit", "EditPost", "AdminEcard", new { id = item.Id })</span> | <span>@Html.ActionLink("Delete", "Delete", "AdminEcard", new { id = item.Id })</span></td>
 
                         </tr>
                     }

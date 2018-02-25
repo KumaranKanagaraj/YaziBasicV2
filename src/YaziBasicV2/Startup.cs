@@ -58,7 +58,18 @@ namespace YaziBasicV2
             {
                 options.UseMySql(UriHelper.DbConnectionString);
             });
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
+                    {
+                        var actionContext =
+                        implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+                        return new UrlHelper(actionContext);
+                    }
+                );
+
             services.AddScoped<IVerityRepository, VerityRepository>();
+            services.AddScoped<IEcardsRepository, EcardsRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISocialImpressionRepository, SocialImpressionRepository>();
 
@@ -133,6 +144,12 @@ namespace YaziBasicV2
 
                 cfg.CreateMap<Verity, VerityForDisplayDto>();
                 cfg.CreateMap<VerityForDisplayDto, Verity>();
+
+                cfg.CreateMap<Ecards, ECardDto>();
+                cfg.CreateMap<ECardDto, Ecards>();
+
+                cfg.CreateMap<Ecards, EcardForDisplay>();
+                cfg.CreateMap<EcardForDisplay, Ecards>();
 
                 cfg.CreateMap<Category, CategoryDto>();
                 cfg.CreateMap<CategoryDto, Category>();

@@ -143,11 +143,8 @@
 
     <script type="text/javascript">
             $(document).ready(function () {
-                sideBarFun();
-                var factId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-                fetchSinglePost(fetchSingleUrl + factId);
+                fetchSinglePost(fetchSingleUrl + getTextAfterLastSlash());
                 fetchAllCategories(fetchAllCategoryUrl);
-
             });
     </script>
 </body>

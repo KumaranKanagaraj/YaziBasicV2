@@ -44,6 +44,12 @@ namespace YaziBasicV2.Services
             //return _context.SocialImpression.ToList();
         }
 
+        public IEnumerable<SocialImpression> GetImpressionFromEcards()
+        {
+            return _context.SocialImpression.Where(a => a.ArticleTypeId == (int)ArticleTypeEnum.Ecards);
+            //return _context.SocialImpression.ToList();
+        }
+
         public bool IsImpressionExists(Guid socialImpressionId)
         {
             return _context.SocialImpression.Any(a => a.SocialImpressionId == socialImpressionId);

@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/app.css">
-    <link rel="stylesheet" href="../css/editor.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/app.css">
+    <link rel="stylesheet" href="~/css/editor.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <title>Hello, world!</title>
@@ -25,16 +25,16 @@
         <div class="collapse navbar-collapse" id="navbarsExample07">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index","Admin")">Dashboard </a>
+                    <a class="nav-link" href="@Url.Action("Index","AdminEcard")">Dashboard </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("AddPost","Admin")">Add Post</a>
+                    <a class="nav-link" href="@Url.Action("AddPost","AdminEcard")">Add Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("ViewPost","Admin")">View Post</a>
+                    <a class="nav-link" href="@Url.Action("ViewPost","AdminEcard")">View Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Category","Admin")">Category</a>
+                    <a class="nav-link" href="@Url.Action("Category","AdminEcard")">Category</a>
                 </li>
             </ul>
         </div>
@@ -52,7 +52,7 @@
         <h5 class="mt0">Create Post</h5>
         <div class="cardbox cardbox-default">
             <div class="cardbox-body">
-                <form id="edit-post" enctype="multipart/form-data" action="/admin/add-post/edit/@Model.FactDto.VerityId" method="post">
+                <form id="create-post" enctype="multipart/form-data" action="/admin/ecards/add-post/add" method="post">
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select class="form-control" id="category" name="CategoryId">
@@ -75,28 +75,29 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="title">Titile</label>
-                        <input type="text" class="form-control" id="title" name="Title" value="@Model.FactDto.Title" placeholder="Title of the post">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="Title" placeholder="Title of the post">
                     </div>
-
+                    <div class="form-group">
+                        <label for="txtEditor">Meta Description</label>
+                        <textarea class="form-control" id="txtEditor" name="MetaDescription"></textarea>
+                    </div>
                     <div class="form-group">
                         <label for="txtEditor">Post</label>
-                        <textarea class="form-control" id="txtEditor" name="Description">@Model.FactDto.Description</textarea>
+                        <textarea class="form-control" id="txtEditor" name="Description"></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="img-url">Image Url</label>
                         <input type="text" class="form-control" id="img-path" name="ImagePath" placeholder="Url for Image">
                     </div>
-
                     @*<div class="form-group">
-                        <label for="upload-image">Upload Image</label>
-                        <input type="file" name="ImageFile" class="form-control-file" id="upload-image">
-                        <small id="emailHelp" class="form-text text-muted"><i>* Supported - .png, .jpg, .gif</i></small>
-                    </div>*@
+                            <label for="upload-image">Upload Image</label>
+                            <input type="file" name="ImageFile" class="form-control-file" id="upload-image">
+                            <small id="emailHelp" class="form-text text-muted"><i>* Supported - .png, .jpg, .gif</i></small>
+                        </div>*@
                     <div class="form-group">
                         <label for="tags">Tags</label>
-                        <input type="text" class="form-control" id="tags" name="Tags" value="@Model.FactDto.Tags">
+                        <input type="text" class="form-control" id="tags" name="Tags" placeholder="tags,tags,tags">
                     </div>
 
                     <div class="">
@@ -121,13 +122,12 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/editor.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/editor.js"></script>
     <script>
-      //$(document).ready(function() {
-      //  $("#txtEditor").Editor();
-      //});
+        $(document).ready(function () {
+        });
     </script>
 </body>
 </html>

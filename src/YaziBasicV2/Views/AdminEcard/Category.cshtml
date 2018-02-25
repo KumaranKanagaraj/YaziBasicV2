@@ -26,16 +26,16 @@
         <div class="collapse navbar-collapse" id="navbarsExample07">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index","Admin")">Dashboard </a>
+                    <a class="nav-link" href="@Url.Action("Index","AdminEcard")">Dashboard </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("AddPost","Admin")">Add Post</a>
+                    <a class="nav-link" href="@Url.Action("AddPost","AdminEcard")">Add Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("ViewPost","Admin")">View Post</a>
+                    <a class="nav-link" href="@Url.Action("ViewPost","AdminEcard")">View Post</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("Category","Admin")">Category</a>
+                    <a class="nav-link" href="@Url.Action("Category","AdminEcard")">Category</a>
                 </li>
             </ul>
         </div>
@@ -62,15 +62,15 @@
                                 <input type="text" name="Name" class="form-control" id="category-name" placeholder="Category Name">
                             </div>
                             @*<div class="form-group">
-                <label for="parent">Parent of</label>
-                <select class="form-control" id="parent">
-                    <option>Diwali</option>
-                    <option>New Year</option>
-                    <option>Pongal</option>
-                    <option>Republic Day</option>
-                    <option>Valentaines Day</option>
-                </select>
-            </div>*@
+                                    <label for="parent">Parent of</label>
+                                    <select class="form-control" id="parent">
+                                        <option>Diwali</option>
+                                        <option>New Year</option>
+                                        <option>Pongal</option>
+                                        <option>Republic Day</option>
+                                        <option>Valentaines Day</option>
+                                    </select>
+                                </div>*@
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea class="form-control" name="Description" id="description" rows="3"></textarea>
@@ -82,20 +82,20 @@
                             <input type="hidden" value="" id="category-id" name="CategoryId" />
 
                             @*<div class="form-group">
-                <label for="upload-image">Upload Image</label>
-                <input type="file" name="ImageFile" class="form-control-file" id="upload-image">
-                <small id="emailHelp" class="form-text text-muted"><i>* Supported - .png, .jpg, .gif</i></small>
-            </div>*@
+                                    <label for="upload-image">Upload Image</label>
+                                    <input type="file" name="ImageFile" class="form-control-file" id="upload-image">
+                                    <small id="emailHelp" class="form-text text-muted"><i>* Supported - .png, .jpg, .gif</i></small>
+                                </div>*@
                             @*<div class="form-group">
-                <label for="metaTags">Meta Tags</label>
-                <input type="text" name="Tags" class="form-control" id="metaTags" placeholder="tags,tags,tags">
-            </div>*@
+                                    <label for="metaTags">Meta Tags</label>
+                                    <input type="text" name="Tags" class="form-control" id="metaTags" placeholder="tags,tags,tags">
+                                </div>*@
 
                             <div class="">
                                 <div class="clearfix">
                                     <div class="float-right mt-sm">
-                                        <button class="btn btn-primary btn-flat" formaction="/admin/category" type="submit">ADD</button>
-                                        <button class="btn btn-primary btn-flat" formaction="/admin/updatecategory" type="submit">UPDATE</button>
+                                        <button class="btn btn-primary btn-flat" formaction="/admin/ecards/category" type="submit">ADD</button>
+                                        <button class="btn btn-primary btn-flat" formaction="/admin/ecards/updatecategory" type="submit">UPDATE</button>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                         <td class="index">@(++counter)</td>
                                         <td class="category-name">@item.Name</td>
                                         <td class="category-description">@item.Description</td>
-                                        <td><span><a class="edit-category" data-category-id="@item.CategoryId" href="#">Edit</a></span> | <span>@Html.ActionLink("Delete", "DeleteCategory", "Admin", new { id = item.CategoryId })</span></td>
+                                        <td><span><a class="edit-category" data-category-id="@item.CategoryId" href="#">Edit</a></span> | <span>@Html.ActionLink("Delete", "DeleteCategory", "AdminEcard", new { id = item.CategoryId })</span></td>
                                     </tr>
                                 }
                             </tbody>

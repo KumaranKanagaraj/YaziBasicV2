@@ -14,6 +14,7 @@ namespace YaziBasicV2.Services
         void DeleteImpression(SocialImpression socialImpression);
         bool IsImpressionExists(Guid socialImpressionId);
         IEnumerable<SocialImpression> GetImpressionFromVerity();
+        IEnumerable<SocialImpression> GetImpressionFromEcards();
         IEnumerable<SocialImpression> GetImpressionFromCategory(int categoryId);
         bool Save();
     }

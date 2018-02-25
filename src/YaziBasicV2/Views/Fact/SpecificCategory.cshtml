@@ -111,7 +111,7 @@
                                         <h4 class="card-title">{{:title}}</h4>
                                         <img class="card-img-top" src="{{:imagePath}}" alt="Card image cap">
                                         <div class="card-body" style="padding-right:0px;padding-left:0px">
-                                            <p class="card-text">{{:description}}</p>
+                                            <p class="card-text">{{:metaDescription}}</p>
                                             <div class="base-footer clerfix">
                                                 <div class="accept-not float-left">
                                                     <button type="button" class="btn bg-accdec btn-sm"><i class="fa fa-check"></i> <span>Accept</span>  <span class="badge number badge-light">{{:agree}}</span></button>
@@ -154,11 +154,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            sideBarFun();
+            document.title = slugToText(getTextAfterLastSlash());
             fetchSingleCategory(fetchSingleCategoryUrl.replace("category-name", getTextAfterLastSlash()));
             fetchAllFacts(fetchByCategoryNameUrl.replace("category-name", getTextAfterLastSlash()));
             fetchAllCategories(fetchAllCategoryUrl);
-            fetchAllTags(fetchAllTagsUrl);
+            fetchAllTags(fetchAllTagsUrl + getTextAfterLastSlash());
         });
     </script>
 </body>

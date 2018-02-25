@@ -16,6 +16,8 @@ namespace YaziBasicV2.Entities
 
         public DbSet<Verity> Verity { get; set; }
 
+        public DbSet<Ecards> Ecards { get; set; }
+
         public DbSet<Category> Category { get; set; }
 
         public DbSet<Author> Author { get; set; }

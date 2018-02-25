@@ -16,9 +16,9 @@ namespace YaziBasicV2.Services
             _context = context;
         }
 
-        public void AddCategory(Category category)
+        public void AddCategory(Category category, ArticleTypeEnum articleType)
         {
-            category.ArticleTypeId = (int)ArticleTypeEnum.Verity;
+            category.ArticleTypeId = (int)articleType;
             _context.Category.Add(category);
         }
 
@@ -32,10 +32,21 @@ namespace YaziBasicV2.Services
             return _context.Category.Where(category => category.ArticleTypeId == (int)ArticleTypeEnum.Verity);
         }
 
+        public IEnumerable<Category> GetCategoryFromEcard()
+        {
+            return _context.Category.Where(category => category.ArticleTypeId == (int)ArticleTypeEnum.Ecards);
+        }
+
         public Category GetCategoryFromVerity(int categoryId)
         {
             return _context.Category.FirstOrDefault(a => a.CategoryId == categoryId
             && a.ArticleTypeId == (int)ArticleTypeEnum.Verity);
+        }
+
+        public Category GetCategoryFromEcard(int categoryId)
+        {
+            return _context.Category.FirstOrDefault(a => a.CategoryId == categoryId
+            && a.ArticleTypeId == (int)ArticleTypeEnum.Ecards);
         }
 
         public Category GetCategory(int categoryId)
@@ -45,13 +56,12 @@ namespace YaziBasicV2.Services
 
         public Category GetCategory(string categoryName)
         {
-            return _context.Category.FirstOrDefault(a => a.Name.ToLower() == categoryName.ToLower()
-            && a.ArticleTypeId == (int)ArticleTypeEnum.Verity);
+            return _context.Category.FirstOrDefault(a => a.Name.ToLower() == categoryName.ToLower());
         }
 
         public bool IsCategoryExists(int id)
         {
-            return _context.Category.Any(a => a.CategoryId == id && a.ArticleTypeId == (int)ArticleTypeEnum.Verity);
+            return _context.Category.Any(a => a.CategoryId == id);
         }
 
         public bool Save()

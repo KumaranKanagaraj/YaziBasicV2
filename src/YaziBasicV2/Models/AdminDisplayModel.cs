@@ -9,6 +9,8 @@ namespace YaziBasicV2.Models
     {
         public List<VerityForDisplayDto> Facts { get; set; }
         public VerityForDisplayDto FactDto { get; set; }
+        public List<EcardForDisplay> Ecards { get; set; }
+        public EcardForDisplay EcardsDto { get; set; }
         public List<CategoryForDisplay> Categories { get; set; }
         public List<string> Authors { get; set; }
         public Dictionary<int, string> CategoryIdName { get; set; }
