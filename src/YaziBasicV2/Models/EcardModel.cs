@@ -50,7 +50,7 @@ namespace YaziBasicV2.Models
                 Tags = eCardsEntity.Tags,
                 Title = eCardsEntity.Title,
                 MetaTitle = eCardsEntity.MetaTitle,
-                Likes = socialImpressionEntity.Likes,
+                Likes = socialImpressionEntity.Likes
             };
             return eCardForDisplayDto;
         }

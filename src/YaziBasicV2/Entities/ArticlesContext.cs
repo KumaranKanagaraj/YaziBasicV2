@@ -26,5 +26,14 @@ namespace YaziBasicV2.Entities
 
         public DbSet<SocialImpression> SocialImpression { get; set; }
 
+        public DbSet<UserInfo> UserInfo { get; set; }
+
+        public DbSet<UserAndPostInfo> UserAndPostInfo { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserAndPostInfo>().HasKey(table => new { table.UserSocialId, table.PostInfoId });
+        }
+
     }
 }

@@ -31,6 +31,8 @@ namespace YaziBasicV2.Models
 
         public string AuthorName { get; set; }
 
+        public bool IsLiked { get; set; } = false;
+
         public int Likes { get; set; }
 
     }

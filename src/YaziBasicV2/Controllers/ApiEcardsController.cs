@@ -20,6 +20,7 @@ namespace YaziBasicV2.Controllers
         private IEcardsRepository _eCardsRepository;
         private ICategoryRepository _categoryRepository;
         private ISocialImpressionRepository _socialImpressionRepository;
+        private IUserAndPostInfoRepository _userAndPostInfoRepository;
         private ILogger<VerityController> _logger;
         private IUrlHelper _urlHelper;
         const int maxPageSize = 10;
@@ -28,12 +29,14 @@ namespace YaziBasicV2.Controllers
             IEcardsRepository eCardsRepository,
             ICategoryRepository categoryRepository,
             ISocialImpressionRepository socialImpressionRepository,
+            IUserAndPostInfoRepository userAndPostInfoRepository,
             ILogger<VerityController> logger, IUrlHelper urlHelper)
         {
             _logger = logger;
             _eCardsRepository = eCardsRepository;
             _categoryRepository = categoryRepository;
             _socialImpressionRepository = socialImpressionRepository;
+            _userAndPostInfoRepository = userAndPostInfoRepository;
             _urlHelper = urlHelper;
         }
 
@@ -42,12 +45,14 @@ namespace YaziBasicV2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ecards")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery]string socialId)
         {
+
             var eCardsEntity = _eCardsRepository.GetAll();
             var categoryEntity = _categoryRepository.GetCategoryFromEcard();
             var impressionEntity = _socialImpressionRepository.GetImpressionFromEcards();
-            var eCardsForDisplay = new EcardModel().GetEcardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity);
+            var eCardsForDisplay = new EcardModel().GetEcardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity).ToList();
+            eCardsForDisplay.ForEach(a => a.IsLiked = _userAndPostInfoRepository.IsLiked(socialId, a.Id));
             return Ok(eCardsForDisplay);
         }
 
@@ -56,7 +61,7 @@ namespace YaziBasicV2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("ecardsdetails", Name = "GetEcardsDetails")]
-        public IActionResult GetEcardsDetails(ResourceParameters resourceParameter)
+        public IActionResult GetEcardsDetails(ResourceParameters resourceParameter, [FromQuery]string socialId)
         {
             var eCardsEntity = _eCardsRepository.GetEcards(resourceParameter);
             var previousPageLink = eCardsEntity.HasPrevious ?
@@ -77,6 +82,8 @@ namespace YaziBasicV2.Controllers
             var categoryEntity = _categoryRepository.GetCategoryFromEcard();
             var impressionEntity = _socialImpressionRepository.GetImpressionFromEcards();
             var eCardsForDisplay = new EcardModel().GetEcardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity);
+            if (socialId != null)
+                eCardsForDisplay.ToList().ForEach(a => a.IsLiked = _userAndPostInfoRepository.IsLiked(socialId, a.Id));
 
             Response.Headers.Add("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetaData));
@@ -85,7 +92,7 @@ namespace YaziBasicV2.Controllers
         }
 
         [HttpGet("ecard/{id}", Name = "GetEcard")]
-        public IActionResult GetEcard(Guid id)
+        public IActionResult GetEcard(Guid id, [FromQuery]string socialId)
         {
             if (!_eCardsRepository.IsECardExists(id))
             {
@@ -95,6 +102,7 @@ namespace YaziBasicV2.Controllers
             var categoryEntity = _categoryRepository.GetCategoryFromEcard(eCardEntity.CategoryId);
             var impressionEntity = _socialImpressionRepository.GetImpression(id);
             var eCardForDisplayDto = new EcardModel().GetECardForDisplayDto(eCardEntity, categoryEntity, impressionEntity);
+            eCardForDisplayDto.IsLiked = socialId == null ? false : _userAndPostInfoRepository.IsLiked(socialId, id);
             return Ok(eCardForDisplayDto);
         }
 
@@ -104,7 +112,7 @@ namespace YaziBasicV2.Controllers
         /// <param name="id">Category Id</param>
         /// <returns></returns>
         [HttpGet("category/{id:int}/ecards")]
-        public IActionResult GetECards(int id)
+        public IActionResult GetECards(int id,[FromQuery]string socialId)
         {
             var eCardsEntity = _eCardsRepository.GetECardsByCategory(id);
             if (eCardsEntity == null)
@@ -113,7 +121,9 @@ namespace YaziBasicV2.Controllers
             }
             var categoryEntity = _categoryRepository.GetCategoryFromEcard(id);
             var impressionEntity = _socialImpressionRepository.GetImpressionFromEcards();
-            var eCardForDisplayDto = new EcardModel().GetECardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity);
+            var eCardForDisplayDto = new EcardModel().GetECardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity).ToList();
+            if (socialId != null)
+                eCardForDisplayDto.ForEach(a => a.IsLiked = _userAndPostInfoRepository.IsLiked(socialId, a.Id));
             return Ok(eCardForDisplayDto);
         }
 
@@ -123,7 +133,7 @@ namespace YaziBasicV2.Controllers
         /// <param name="name">category name</param>
         /// <returns></returns>
         [HttpGet("category/{name}/ecards")]
-        public IActionResult GetEcardsByCategoryName(string name)
+        public IActionResult GetEcardsByCategoryName(string name, [FromQuery]string socialId)
         {
             name = name.Trim().Replace("-", " ");
             var categoryEntity = _categoryRepository.GetCategory(name);
@@ -133,7 +143,9 @@ namespace YaziBasicV2.Controllers
             }
             var impressionEntity = _socialImpressionRepository.GetImpressionFromEcards();
             var eCardsEntity = _eCardsRepository.GetECardsByCategory(categoryEntity.CategoryId);
-            var eCardsForDisplayDto = new EcardModel().GetECardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity);
+            var eCardsForDisplayDto = new EcardModel().GetECardsForDisplayDto(eCardsEntity, categoryEntity, impressionEntity).ToList();
+            if (socialId != null)
+                eCardsForDisplayDto.ForEach(a => a.IsLiked = _userAndPostInfoRepository.IsLiked(socialId, a.Id));
             return Ok(eCardsForDisplayDto);
         }
 

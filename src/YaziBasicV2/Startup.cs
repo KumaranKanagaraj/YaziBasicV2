@@ -72,6 +72,8 @@ namespace YaziBasicV2
             services.AddScoped<IEcardsRepository, EcardsRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISocialImpressionRepository, SocialImpressionRepository>();
+            services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+            services.AddScoped<IUserAndPostInfoRepository, UserAndPostInfoRepository>();
 
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -153,6 +155,12 @@ namespace YaziBasicV2
 
                 cfg.CreateMap<Category, CategoryDto>();
                 cfg.CreateMap<CategoryDto, Category>();
+
+                cfg.CreateMap<UserInfo, UserInfoDto>();
+                cfg.CreateMap<UserInfoDto, UserInfo>();
+
+                cfg.CreateMap<UserAndPostInfo, UserAndPostInfoDto>();
+                cfg.CreateMap<UserAndPostInfoDto, UserAndPostInfo>();
 
             });
 
